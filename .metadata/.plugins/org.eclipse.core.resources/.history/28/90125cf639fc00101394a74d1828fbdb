@@ -1,0 +1,18 @@
+package uppgifter;
+
+import java.awt.Image;
+
+public class AlienEntity extends Entity{
+
+	public AlienEntity(Image image, double xPos, double yPos, int speed) {
+		super(image, xPos, yPos, speed);
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void move(long deltaTime) {
+		xPos += 0 * (deltaTime / 1000000000.0) * speed;
+		yPos += 1 * (deltaTime / 1000000000.0) * speed;
+	}
+
+}

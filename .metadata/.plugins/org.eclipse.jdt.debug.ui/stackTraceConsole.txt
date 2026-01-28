@@ -1,0 +1,88 @@
+package se.moment2.gt;
+
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.HashMap;
+
+import se.egy.graphics.*; // Spelbiblioteket importeras
+
+public class GameTest implements KeyListener {
+
+    static GameScreen gameScreen = new GameScreen("Test", 800, 600, false);
+    private static boolean gameRunning = true;
+    private static ImgContainer player; // Fixed: This will be properly initialized
+    private static HashMap<String, Boolean> keyDown = new HashMap<>();
+
+    public GameTest() { // Fixed: Constructor instead of Game() method
+        gameScreen.setKeyListener(this);
+        // Initialize keyDown map with default values
+        keyDown.put("up", false);
+        keyDown.put("down", false);
+        keyDown.put("left", false);
+        keyDown.put("right", false);
+    }
+
+    public static void main(String[] args) {
+        // Fixed: Create instance to set up KeyListener
+        new GameTest();
+        
+        // Fixed: Assign the ImgContainer to player variable
+        player = new ImgContainer(200, 100, "playerImg.png");
+
+        while (gameRunning) {
+            gameScreen.render(player); // Fixed: render player instead of ic
+            update();
+            try {
+                Thread.sleep(20);
+            } catch (Exception e) {
+                // Handle exception properly
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void update() {
+        // Fixed: Proper coordinate updates with null checks
+        if (Boolean.TRUE.equals(keyDown.get("up")))
+            player.setY(player.getY() - 5); // Move up (decrease Y)
+        if (Boolean.TRUE.equals(keyDown.get("down")))
+            player.setY(player.getY() + 5); // Move down (increase Y)
+        if (Boolean.TRUE.equals(keyDown.get("right")))
+            player.setX(player.getX() + 5); // Move right (increase X)
+        if (Boolean.TRUE.equals(keyDown.get("left")))
+            player.setX(player.getX() - 5); // Move left (decrease X)
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        // Not needed for this implementation
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        int key = e.getKeyCode();
+
+        if (key == KeyEvent.VK_LEFT)
+            keyDown.put("left", true);
+        else if (key == KeyEvent.VK_RIGHT)
+            keyDown.put("right", true);
+        else if (key == KeyEvent.VK_UP)
+            keyDown.put("up", true);
+        else if (key == KeyEvent.VK_DOWN)
+            keyDown.put("down", true);
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        int key = e.getKeyCode();
+
+        if (key == KeyEvent.VK_LEFT)
+            keyDown.put("left", false);
+        else if (key == KeyEvent.VK_RIGHT)
+            keyDown.put("right", false);
+        else if (key == KeyEvent.VK_UP)
+            keyDown.put("up", false);
+        else if (key == KeyEvent.VK_DOWN)
+            keyDown.put("down", false);
+    }
+}

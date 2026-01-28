@@ -1,0 +1,8 @@
+INDEX VERSION 1.134+/home/ferit/Eclipse-wsp-Programmering-2/.metadata/.plugins/org.eclipse.jdt.core
+306661690.index
+3668571752.index
+1865797976.index
+2661500465.index
+1134602194.index
+3018271341.index
+2144356404.index
