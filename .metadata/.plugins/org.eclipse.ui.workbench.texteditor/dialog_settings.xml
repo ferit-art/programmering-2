@@ -5,6 +5,8 @@
 		<item key="replaceBarOpen" value="false"/>
 		<item key="selection" value="gameScreen"/>
 		<list key="findhistory">
+			<item value="entity"/>
+			<item value="updateTime"/>
 			<item value="i"/>
 			<item value="img"/>
 			<item value="lastUpdateTime"/>

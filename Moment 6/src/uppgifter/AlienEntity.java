@@ -4,7 +4,7 @@ import java.awt.Image;
 
 public class AlienEntity extends Entity{
 
-	public AlienEntity(Image image, double xPos, double yPos, int speed) {
+	public AlienEntity(Image image, int xPos, int yPos, int speed) {
 		super(image, xPos, yPos, speed);
 		// TODO Auto-generated constructor stub
 	}

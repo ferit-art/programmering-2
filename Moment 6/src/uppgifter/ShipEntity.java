@@ -4,7 +4,7 @@ import java.awt.Image;
 
 public class ShipEntity extends Entity {
 
-	public ShipEntity(Image image, double xPos, double yPos, int speed) {
+	public ShipEntity(Image image, int xPos, int yPos, int speed) {
 		super(image, xPos, yPos, speed);
 	}
 

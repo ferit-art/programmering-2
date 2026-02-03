@@ -8,7 +8,7 @@ import se.egy.graphics.Drawable;
 public abstract class Entity implements Drawable {
 	private Image image;
 
-	protected double xPos, yPos; // Positionen
+	protected int xPos, yPos; // Positionen
 
 	protected int speed; // Hastighet i px/sekund
 
@@ -19,7 +19,7 @@ public abstract class Entity implements Drawable {
 	/**
 	 * Konstruktor
 	 */
-	public Entity(Image image, double xPos, double yPos, int speed) {
+	public Entity(Image image, int xPos, int yPos, int speed) {
 		this.image = image;
 		this.xPos = xPos;
 		this.yPos = yPos;

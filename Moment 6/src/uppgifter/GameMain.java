@@ -50,7 +50,7 @@ public class GameMain implements KeyListener {
 			Image alienImg = new ImageIcon(getClass().getResource("/alien.png")).getImage();
 
 			// To center the aliens
-			
+
 			int a = GameScreen.getWidth()
 					- ((GameScreen.getWidth() / 2 + alienImg.getWidth(null) / 2) + (100 - alienImg.getWidth(null) / 2));
 			int b = 0;
@@ -97,17 +97,22 @@ public class GameMain implements KeyListener {
 		GameScreen.render(ship);
 	}
 
+	// uppgift 6
+	
 	public void gameLoop() {
-		/** Läser av systemtiden i nanosekunder */
+		int fps = 15;
+		int updateTime = (int) (1.0 / fps * 1000000000.0);
+
 		lastUpdateTime = System.nanoTime();
 
 		while (gameRunning) {
-			/** Tiden som gått sedan senaste uppdateringen */
 			long deltaTime = System.nanoTime() - lastUpdateTime;
-			lastUpdateTime = System.nanoTime();
 
-			update(deltaTime);
-			render(spriteList);
+			if (deltaTime > updateTime) {
+				lastUpdateTime = System.nanoTime();
+				update(deltaTime);
+				render(spriteList);
+			}
 		}
 	}
 
