@@ -2,30 +2,34 @@ package uppgift1;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Rectangle;
 
 import se.egy.graphics.Drawable;
 
 public abstract class Entity implements Drawable {
 	private Image image;
 
-	private int xPos; // Positionen
+	private double xPos; // Positionen
 
-	private int yPos;
+	private double yPos;
 
 	protected int speed; // Hastighet i px/sekund
 
 	protected int dx = 0, dy = 0; // Rörelseriktning
 
-	private boolean active = true; // Gör alla nya objekt aktiva.
+	private boolean active = false; // Gör alla nya objekt aktiva.
+
+	private Rectangle rec = null;
 
 	/**
 	 * Konstruktor
 	 */
-	public Entity(Image image, int xPos, int yPos, int speed) {
+	public Entity(Image image, double xPos, double yPos, int speed) {
 		this.image = image;
 		this.setXPos(xPos);
 		this.setYPos(yPos);
 		this.speed = speed;
+		rec = new Rectangle((int) xPos, (int) yPos, image.getWidth(null), image.getHeight(null));
 	}
 
 	/**
@@ -77,19 +81,29 @@ public abstract class Entity implements Drawable {
 		this.active = active;
 	}
 
-	public int getXPos() {
+	public double getXPos() {
 		return xPos;
 	}
 
-	public void setXPos(int xPos) {
+	public void setXPos(double xPos) {
 		this.xPos = xPos;
 	}
 
-	public int getYPos() {
+	public void setYPos(double yPos) {
+		this.yPos = yPos;
+	}
+
+	public double getYPos() {
 		return yPos;
 	}
 
-	public void setYPos(int yPos) {
-		this.yPos = yPos;
+	public Rectangle getRectangle() {
+		rec.setLocation((int) xPos, (int) yPos);
+		return rec;
+	}
+
+	public boolean collision(Entity entity) {
+		getRectangle(); // Uppdaterar positionen på den egna rektangeln
+		return rec.intersects(entity.getRectangle());
 	}
 }

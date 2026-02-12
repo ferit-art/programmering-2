@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <libraryInfos>
     <libraryInfo home="/usr/lib/jvm/java-24-jdk" version="24.0.2"/>
-    <libraryInfo home="/usr/lib/jvm/java-25-openjdk" version="25.0.1"/>
-    <libraryInfo home="/usr/lib/jvm/java-17-openjdk" version="17.0.17"/>
+    <libraryInfo home="/usr/lib/jvm/java-25-openjdk" version="25.0.2"/>
+    <libraryInfo home="/usr/lib/jvm/java-17-openjdk" version="17.0.18"/>
     <libraryInfo home="/usr/lib/jvm/java-24-openjdk" version="24.0.2"/>
-    <libraryInfo home="/usr/lib/jvm/java-8-openjdk" version="1.8.0_472">
+    <libraryInfo home="/usr/lib/jvm/java-8-openjdk" version="1.8.0_482">
         <bootpath>
             <entry path="/usr/lib/jvm/java-8-openjdk/jre/lib/resources.jar"/>
             <entry path="/usr/lib/jvm/java-8-openjdk/jre/lib/rt.jar"/>
@@ -35,5 +35,5 @@
             <entry path="null"/>
         </endorsedDirs>
     </libraryInfo>
-    <libraryInfo home="/usr/lib/jvm/java-25-jdk" version="25.0.1"/>
+    <libraryInfo home="/usr/lib/jvm/java-25-jdk" version="25.0.2"/>
 </libraryInfos>

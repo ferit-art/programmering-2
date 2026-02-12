@@ -4,6 +4,8 @@ import java.awt.Image;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.swing.ImageIcon;
 
@@ -13,14 +15,19 @@ public class GameMain implements KeyListener {
 
 	private boolean gameRunning = true;
 	private long lastUpdateTime;
+	private int height = 800;
+	private int width = 1000;
 
-	private GameScreen GameScreen = new GameScreen("Game", 1000, 800, false);
+	private GameScreen GameScreen = new GameScreen("Game", width, height, false);
 
 	private HashMap<String, Boolean> keyDown = new HashMap<>();
 
-	private ArrayList<Entity> spriteList = new ArrayList<>();
+	private CopyOnWriteArrayList<Entity> spriteList = new CopyOnWriteArrayList<>();
+	private List<Entity> toRemove = new ArrayList<>();
+
 	private ShipEntity ship;
 	private AlienEntity[] aliens = new AlienEntity[5];
+	private long lastRocketTime;
 
 	public GameMain() {
 		GameScreen.setKeyListener(this);
@@ -29,6 +36,7 @@ public class GameMain implements KeyListener {
 		keyDown.put("right", false);
 		keyDown.put("down", false);
 		keyDown.put("up", false);
+		keyDown.put("space", false);
 		loadImages();
 		gameLoop();
 	}
@@ -36,10 +44,10 @@ public class GameMain implements KeyListener {
 	public void loadImages() {
 		Image shipImg = new ImageIcon(getClass().getResource("/ship.png")).getImage();
 
-		int x = GameScreen.getWidth() - (GameScreen.getWidth() / 2 + shipImg.getWidth(null) / 2);
-		int y = GameScreen.getHeight() - (10 + shipImg.getHeight(null));
+		int shipX = GameScreen.getWidth() - (GameScreen.getWidth() / 2 + shipImg.getWidth(null) / 2);
+		int shipY = GameScreen.getHeight() - (10 + shipImg.getHeight(null));
 
-		ship = new ShipEntity(shipImg, x, y, 800);
+		ship = new ShipEntity(shipImg, shipX, shipY, 200);
 		spriteList.add(ship);
 
 		for (int i = 0; i < aliens.length; i++) {
@@ -47,15 +55,18 @@ public class GameMain implements KeyListener {
 
 			// To center the aliens
 
-			int a = GameScreen.getWidth()
+			int alienX = GameScreen.getWidth()
 					- ((GameScreen.getWidth() / 2 + alienImg.getWidth(null) / 2) + (100 - alienImg.getWidth(null) / 2));
-			int b = 0;
+			int alienY = 0;
 
-			aliens[i] = new AlienEntity(alienImg, a + 40 * i, b, 20);
+			aliens[i] = new AlienEntity(alienImg, alienX + 40 * i, alienY, 90);
 		}
+
 		for (Entity alien : aliens) {
 			spriteList.add(alien);
 		}
+
+		spriteList.add(ship);
 	}
 
 	public void update(long deltaTime) {
@@ -74,19 +85,26 @@ public class GameMain implements KeyListener {
 		}
 
 		for (Entity entity : spriteList) {
+
 			if (entity instanceof AlienEntity) {
-				if (GameScreen.getHeight() > entity.getYPos() + entity.getHeight()) { // Is only for aliens
-					entity.move(deltaTime);
+
+				if (entity.getYPos() > GameScreen.getHeight() - entity.getHeight()) {
+					entity.setDirectionY(-1);
+				} else if (entity.getYPos() < 0) {
+					entity.setDirectionY(1);
 				}
-			} else { // ship does not get affected
-				entity.move(deltaTime);
+			} else if (entity instanceof MissileEntity && entity.getYPos() < 0) {
+				entity.setActive(false);
+				toRemove.add(entity);
 			}
+			entity.move(deltaTime);
 		}
+
+		spriteList.removeAll(toRemove);
 	}
 
-	public void render(ArrayList<Entity> spriteList) {
+	public void render(CopyOnWriteArrayList<Entity> spriteList) {
 		GameScreen.render(spriteList);
-		GameScreen.render(ship);
 	}
 
 	public void gameLoop() {
@@ -98,16 +116,18 @@ public class GameMain implements KeyListener {
 			lastUpdateTime = System.nanoTime();
 			update(deltaTime);
 			render(spriteList);
-			double fps = 1000000000.0 / deltaTime;
+			checkCollisionAndRemove();
+
+			double fps = 1_000_000_000.0 / deltaTime;
 
 			if (System.nanoTime() - lastFpsUpdateTime > 800000000) { // About 0.8 seconds
-				System.out.println((int) fps);
+				System.out.println("Fps: " + (int) fps + " Frametime: " + (int) deltaTime / 100000 + " ms");
 				lastFpsUpdateTime = System.nanoTime();
 			}
 		}
 	}
 
-	/** Spelets tangentbordslyssnare */
+	/** Spelets tangentbordslyssnare **/
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
 
@@ -119,7 +139,48 @@ public class GameMain implements KeyListener {
 			keyDown.put("left", true);
 		} else if (key == KeyEvent.VK_D) {
 			keyDown.put("right", true);
+		} else if (key == KeyEvent.VK_SPACE && System.nanoTime() - lastRocketTime > 800_000_000L) {
+			launchRocket();
 		}
+	}
+
+	public void checkCollisionAndRemove() {
+		// alien <-> missile
+		
+		for (Entity entity : spriteList) {
+
+			if (entity instanceof AlienEntity) {
+
+	            if (ship.missile != null && ship.missile.getActive() && entity.collision(ship.missile)) {
+
+					entity.setActive(false);
+					ship.missile.setActive(false);
+
+					toRemove.add(entity);
+					toRemove.add(ship.missile);
+
+				}
+				if (entity.collision(ship)) {
+
+					entity.setActive(false);
+					ship.setActive(false);
+
+					toRemove.add(entity);
+					toRemove.add(ship);
+				}
+			}
+		}
+		spriteList.removeAll(toRemove);
+		toRemove.clear();
+	}
+
+	private void launchRocket() {
+		Image rocketImg = new ImageIcon(getClass().getResource("/rocket.png")).getImage();
+		ship.missile = new MissileEntity(rocketImg, ship.getXPos() + ship.getWidth() / 2 - rocketImg.getWidth(null) / 2, // Center
+				ship.getYPos(), 200);
+		ship.missile.setActive(true);
+		spriteList.add(ship.missile);
+		lastRocketTime = System.nanoTime();
 	}
 
 	public void keyReleased(KeyEvent e) {
@@ -133,6 +194,8 @@ public class GameMain implements KeyListener {
 			keyDown.put("left", false);
 		} else if (key == KeyEvent.VK_D) {
 			keyDown.put("right", false);
+		} else if (key == KeyEvent.VK_SPACE) {
+			keyDown.put("space", false);
 		}
 	}
 

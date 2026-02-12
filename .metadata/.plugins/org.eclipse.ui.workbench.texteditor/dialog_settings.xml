@@ -5,6 +5,13 @@
 		<item key="replaceBarOpen" value="false"/>
 		<item key="selection" value="gameScreen"/>
 		<list key="findhistory">
+			<item value="rectangle"/>
+			<item value="rocket"/>
+			<item value="ship.missile"/>
+			<item value="List"/>
+			<item value="active"/>
+			<item value="null"/>
+			<item value="rocketLaunched"/>
 			<item value="entity"/>
 			<item value="updateTime"/>
 			<item value="i"/>
@@ -13,12 +20,6 @@
 			<item value="drawab"/>
 			<item value="dra"/>
 			<item value="drawable"/>
-			<item value="gamescreen"/>
-			<item value="gameScreen"/>
-			<item value="container"/>
-			<item value="render"/>
-			<item value="loadImage§"/>
-			<item value="loadImages"/>
 		</list>
 	</section>
 </section>

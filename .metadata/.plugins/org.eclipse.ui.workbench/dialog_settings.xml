@@ -7,4 +7,9 @@
 		<item key="DIALOG_HEIGHT" value="574"/>
 		<item key="DIALOG_FONT_NAME" value="1|Roboto|10.0|0|GTK|1|"/>
 	</section>
+	<section name="EditorSelectionDialog">
+		<item key="EditorSelectionDialog.STORE_ID_FILE_EXTENSION" value=".fxml"/>
+		<item key="EditorSelectionDialog.STORE_ID_INTERNAL_EXTERNAL" value="true"/>
+		<item key="EditorSelectionDialog.STORE_ID_DESCR" value="Scene Builder 25.0.0"/>
+	</section>
 </section>

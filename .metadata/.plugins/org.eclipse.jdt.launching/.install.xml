@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <dirs>
     <entry loc="/usr/lib/jvm/java-24-jdk" stamp="1753439280072"/>
-    <entry loc="/usr/lib/jvm/java-25-openjdk" stamp="1765541014996"/>
-    <entry loc="/usr/lib/jvm/java-17-openjdk" stamp="1765541016605"/>
+    <entry loc="/usr/lib/jvm/java-25-openjdk" stamp="1770635793799"/>
+    <entry loc="/usr/lib/jvm/java-17-openjdk" stamp="1770635795419"/>
     <entry loc="/usr/lib/jvm/java-24-openjdk" stamp="1753175818912"/>
-    <entry loc="/usr/lib/jvm/java-8-openjdk" stamp="1768899050872"/>
+    <entry loc="/usr/lib/jvm/java-8-openjdk" stamp="1770635795908"/>
     <entry loc="/usr/lib/eclipse/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.linux.x86_64_21.0.7.v20250502-0916/jre" stamp="1752173161470"/>
     <entry loc="/usr/lib/eclipse/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.linux.x86_64_21.0.7.v20250502-0916" stamp="1752173161012"/>
-    <entry loc="/usr/lib/jvm/java-25-jdk" stamp="1761208095643"/>
+    <entry loc="/usr/lib/jvm/java-25-jdk" stamp="1770636169434"/>
 </dirs>

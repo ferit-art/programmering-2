@@ -9,7 +9,7 @@ public abstract class Entity implements Drawable {
 	private int speed;
 	private int dx = 1;
 	private int dy = 1;
-	private boolean active = true;
+	private boolean active = false;
 
 	/**
 	 * Konstruktor
