@@ -5,12 +5,10 @@ import java.awt.Image;
 import java.awt.Rectangle;
 
 public abstract class Entity implements Drawable {
+	
 	private Image image;
-
 	private double xPos; // Positionen
-
 	private double yPos;
-
 	protected int speed; // Hastighet i px/sekund
 
 	protected int dx = 0, dy = 0; // Rörelseriktning

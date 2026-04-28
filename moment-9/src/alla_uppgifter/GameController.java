@@ -14,7 +14,7 @@ public class GameController implements KeyListener {
 
 	private HashMap<String, Boolean> keyDown = new HashMap<>();
 	private List<Entity> spriteList = new CopyOnWriteArrayList<>();
-	private List<Drawable> toRemove = new ArrayList<>();
+	private List<Entity> toRemove = new ArrayList<>();
 	private AlienEntity[] aliens = new AlienEntity[5];
 	private long lastRocketTime;
 
@@ -72,7 +72,7 @@ public class GameController implements KeyListener {
 			ship.setDirectionX(0);
 		}
 
-		for (Drawable entity : spriteList) {
+		for (Entity entity : spriteList) {
 
 			if (entity instanceof AlienEntity) {
 
@@ -116,7 +116,7 @@ public class GameController implements KeyListener {
 
 			double fps = 1_000_000_000.0 / deltaTime;
 
-			if (System.nanoTime() - lastFpsUpdateTime > 800000000) { // About 0.8 seconds
+			if (System.nanoTime() - lastFpsUpdateTime >= 1000000000) { // About 1 seconds
 				System.out.println("Fps: " + (int) fps + " Frametime: " + (int) deltaTime / 100000 + " ms");
 				lastFpsUpdateTime = System.nanoTime();
 			}
@@ -152,7 +152,7 @@ public class GameController implements KeyListener {
 	public void checkCollisionAndRemove() {
 		// alien <-> missile
 
-		for (Drawable entity : spriteList) {
+		for (Entity entity : spriteList) {
 
 			if (entity instanceof AlienEntity) {
 
