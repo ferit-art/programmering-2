@@ -1,4 +1,4 @@
-package uppgift1;
+package se.egy.game.view;
 
 import java.awt.Graphics2D;
 

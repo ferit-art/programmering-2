@@ -1,4 +1,4 @@
-package uppgift1;
+package alla_uppgifter;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -40,5 +40,4 @@ public class ShipEntity extends Entity {
 		} else
 			return false;
 	}
-
 }

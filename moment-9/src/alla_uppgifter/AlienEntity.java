@@ -1,4 +1,4 @@
-package uppgift1;
+package alla_uppgifter;
 
 import java.awt.Image;
 
@@ -14,5 +14,4 @@ public class AlienEntity extends Entity {
 		setXPos((getXPos() + dx * (deltaTime / 1000000000.0) * speed));
 		setYPos((getYPos() + dy * (deltaTime / 1000000000.0) * speed));
 	}
-
 }

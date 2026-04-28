@@ -1,4 +1,4 @@
-package uppgift1;
+package alla_uppgifter;
 
 import java.awt.Image;
 

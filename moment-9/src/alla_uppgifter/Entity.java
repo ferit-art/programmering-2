@@ -1,4 +1,4 @@
-package uppgift1;
+package alla_uppgifter;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -63,7 +63,7 @@ public abstract class Entity implements Drawable {
 	 */
 	public abstract void move(long deltaTime);
 
-	public int getHeight() {
+	public double getHeight() {
 		return image.getHeight(null);
 	}
 
